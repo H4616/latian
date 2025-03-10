@@ -20,10 +20,18 @@ class OrderPage extends StatefulWidget {
 }
 
 class _OrderPageState extends State<OrderPage> {
+  late int quantity;
+
+  @override
+  void initState() {
+    super.initState();
+    quantity = widget.quantity;  // Inisialisasi quantity dengan nilai yang diteruskan
+  }
+
   // Menghitung harga total berdasarkan jumlah pesanan
   double get totalPrice {
     double unitPrice = double.parse(widget.price.replaceAll('\$', '')); // Mengubah harga ke format angka
-    return unitPrice * widget.quantity; // Menggunakan quantity yang diteruskan dari halaman sebelumnya
+    return unitPrice * quantity; // Menggunakan jumlah yang dimasukkan pengguna
   }
 
   @override
@@ -59,10 +67,38 @@ class _OrderPageState extends State<OrderPage> {
                 style: TextStyle(fontSize: 20, color: Colors.black54),
               ),
               SizedBox(height: 20),
-              // Menampilkan jumlah pesanan
+              // Menampilkan input jumlah pesanan dengan tombol tambah dan kurang
               Text(
-                'Quantity: ${widget.quantity}', // Menampilkan jumlah yang diteruskan
+                'Enter Quantity:',
                 style: TextStyle(fontSize: 18),
+              ),
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.remove),
+                    onPressed: () {
+                      setState(() {
+                        if (quantity > 1) {
+                          quantity--;
+                        }
+                      });
+                    },
+                  ),
+                  Text(
+                    '$quantity', // Menampilkan jumlah pesanan yang bisa diubah
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.add),
+                    onPressed: () {
+                      setState(() {
+                        quantity++;
+                      });
+                    },
+                  ),
+                ],
               ),
               SizedBox(height: 20),
               // Menampilkan total harga
