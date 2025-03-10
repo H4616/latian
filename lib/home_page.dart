@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Welcome to MyRestaurant"),
+        title: Text("Happy Food"),
         backgroundColor: Colors.green,
         elevation: 0,
         leading: IconButton(

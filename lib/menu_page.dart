@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'order_page.dart';  // Pastikan sudah mengimpor halaman OrderPage
+import 'order_page.dart'; // Pastikan sudah mengimpor halaman OrderPage
 
 class MenuPage extends StatefulWidget {
   const MenuPage({super.key});
@@ -14,9 +14,28 @@ class _MenuPageState extends State<MenuPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Welcome to MyRestaurant"),
+        title: Text("Happy Food"),
         backgroundColor: Colors.green,
         elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.menu),
+          onPressed: () {
+            // Logic untuk membuka menu samping (drawer)
+          },
+        ),
+        actions: [
+          // Menambahkan tombol logout di kanan atas
+          IconButton(
+            icon: Icon(Icons.exit_to_app), // Ikon untuk logout
+            onPressed: () {
+              // Logic untuk logout, misalnya navigasi ke halaman login
+              Navigator.pushReplacementNamed(
+                context,
+                '/login',
+              ); // Arahkan kembali ke halaman login
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -24,7 +43,7 @@ class _MenuPageState extends State<MenuPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _restaurantMenu(),  // Panggil widget menu restoran
+              _restaurantMenu(), // Panggil widget menu restoran
             ],
           ),
         ),
@@ -48,8 +67,10 @@ class _MenuPageState extends State<MenuPage> {
         SizedBox(height: 15),
         // Menggunakan ListView untuk menampilkan menu dalam bentuk daftar vertikal
         ListView.builder(
-          shrinkWrap: true, // Membuat ListView menyesuaikan dengan ruang yang tersedia
-          physics: NeverScrollableScrollPhysics(), // Menonaktifkan scroll default dari ListView
+          shrinkWrap:
+              true, // Membuat ListView menyesuaikan dengan ruang yang tersedia
+          physics:
+              NeverScrollableScrollPhysics(), // Menonaktifkan scroll default dari ListView
           itemCount: 6, // Jumlah item menu
           itemBuilder: (context, index) {
             return GestureDetector(
@@ -58,12 +79,14 @@ class _MenuPageState extends State<MenuPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => OrderPage(
-                      name: "Menu ${index + 1}",
-                      price: "\$15.99",
-                      quantity: 1, // Mengatur quantity default menjadi 1
-                      imagePath: 'assets/home_assets/gambar${index + 1}.jpg',
-                    ),
+                    builder:
+                        (context) => OrderPage(
+                          name: "Menu ${index + 1}",
+                          price: "\$15.99",
+                          quantity: 1, // Mengatur quantity default menjadi 1
+                          imagePath:
+                              'assets/home_assets/gambar${index + 1}.jpg',
+                        ),
                   ),
                 );
               },
@@ -98,7 +121,10 @@ class _MenuPageState extends State<MenuPage> {
                             ),
                             Text(
                               "\$15.99", // Harga menu
-                              style: TextStyle(fontSize: 14, color: Colors.black54),
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.black54,
+                              ),
                             ),
                           ],
                         ),
@@ -109,12 +135,14 @@ class _MenuPageState extends State<MenuPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => OrderPage(
-                                name: "Menu ${index + 1}",
-                                price: "\$15.99",
-                                quantity: 1, // Mengirimkan quantity default
-                                imagePath: 'assets/home_assets/gambar${index + 1}.jpg',
-                              ),
+                              builder:
+                                  (context) => OrderPage(
+                                    name: "Menu ${index + 1}",
+                                    price: "\$15.99",
+                                    quantity: 1, // Mengirimkan quantity default
+                                    imagePath:
+                                        'assets/home_assets/gambar${index + 1}.jpg',
+                                  ),
                             ),
                           );
                         },
