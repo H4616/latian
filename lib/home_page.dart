@@ -40,8 +40,22 @@ class _HomePageState extends State<HomePage> {
             // Logic untuk membuka menu samping (drawer)
           },
         ),
+        actions: [
+          // Menambahkan tombol logout di kanan atas
+          IconButton(
+            icon: Icon(Icons.exit_to_app), // Ikon untuk logout
+            onPressed: () {
+              // Logic untuk logout, misalnya navigasi ke halaman login
+              Navigator.pushReplacementNamed(
+                context,
+                '/login',
+              ); // Arahkan kembali ke halaman login
+            },
+          ),
+        ],
       ),
-      body: SingleChildScrollView( // Membungkus dengan SingleChildScrollView untuk scroll
+      body: SingleChildScrollView(
+        // Membungkus dengan SingleChildScrollView untuk scroll
         child: Padding(
           padding: const EdgeInsets.all(23.0),
           child: Column(
@@ -77,12 +91,20 @@ class _HomePageState extends State<HomePage> {
         children: [
           Text(
             "Hello, Welcome to",
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500, color: Colors.black54),
+            style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.w500,
+              color: Colors.black54,
+            ),
           ),
           SizedBox(height: 5),
           Text(
             "MyRestaurant",
-            style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.green),
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+              color: Colors.green,
+            ),
           ),
         ],
       ),
@@ -90,80 +112,90 @@ class _HomePageState extends State<HomePage> {
   }
 
   // Restaurant Menu dengan Animasi
-Widget _restaurantMenu() {
-  return AnimatedContainer(
-    duration: Duration(seconds: 1),
-    height: _containerHeight,
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "Menu",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black87),
-        ),
-        SizedBox(height: 15),
-        // Gunakan Flexible untuk GridView agar dapat mengatur ukuran
-        Flexible(
-          child: GridView.builder(
-            shrinkWrap: true, // Membuat GridView menyesuaikan dengan ruang yang tersedia
-            physics: NeverScrollableScrollPhysics(), // Menonaktifkan scroll default dari GridView
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 8,
-              mainAxisSpacing: 8,
-              childAspectRatio: 1.2,
+  Widget _restaurantMenu() {
+    return AnimatedContainer(
+      duration: Duration(seconds: 1),
+      height: _containerHeight,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Menu",
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
             ),
-            itemCount: 6, // Jumlah item menu
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  // Mengarahkan ke halaman order dan mengirimkan data
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => OrderPage(
-                        name: "Menu Item ${index + 1}",
-                        price: "\$15.99",
-                        imagePath: 'assets/home_assets/gambar${index + 1}.jpg',
-                      ),
-                    ),
-                  );
-                },
-                child: Card(
-                  color: Colors.green[50],
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/home_assets/gambar${index + 1}.jpg', // Gambar akan diambil dari direktori home_assets
-                        width: 80, // Tentukan lebar gambar jika diperlukan
-                        height: 80, // Tentukan tinggi gambar jika diperlukan
-                      ),
-                      SizedBox(height: 10),
-                      Text(
-                        "Menu Item ${index + 1}",
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black87),
-                      ),
-                      Text(
-                        "\$15.99",
-                        style: TextStyle(fontSize: 14, color: Colors.black54),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            },
           ),
-        ),
-      ],
-    ),
-  );
-}
-
-
+          SizedBox(height: 15),
+          // Gunakan Flexible untuk GridView agar dapat mengatur ukuran
+          Flexible(
+            child: GridView.builder(
+              shrinkWrap:
+                  true, // Membuat GridView menyesuaikan dengan ruang yang tersedia
+              physics:
+                  NeverScrollableScrollPhysics(), // Menonaktifkan scroll default dari GridView
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
+                childAspectRatio: 1.2,
+              ),
+              itemCount: 6, // Jumlah item menu
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    // Mengarahkan ke halaman order dan mengirimkan data
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder:
+                            (context) => OrderPage(
+                              name: "Menu ${index + 1}",
+                              price: "\$15.99",
+                              imagePath:
+                                  'assets/home_assets/gambar${index + 1}.jpg', quantity: 1,
+                            ),
+                      ),
+                    );
+                  },
+                  child: Card(
+                    color: Colors.green[50],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/home_assets/gambar${index + 1}.jpg', // Gambar akan diambil dari direktori home_assets
+                          width: 80, // Tentukan lebar gambar jika diperlukan
+                          height: 80, // Tentukan tinggi gambar jika diperlukan
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          "Menu ${index + 1}",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87,
+                          ),
+                        ),
+                        Text(
+                          "\$15.99",
+                          style: TextStyle(fontSize: 14, color: Colors.black54),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   // Special Offers dengan Animasi
   Widget _specialOffers() {
@@ -175,12 +207,17 @@ Widget _restaurantMenu() {
         children: [
           Text(
             "Special Offers",
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black87),
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
+            ),
           ),
           SizedBox(height: 10),
           // Menggunakan SingleChildScrollView untuk menghindari overflow pada Card
           SingleChildScrollView(
-            scrollDirection: Axis.horizontal, // Scroll horizontal jika konten panjang
+            scrollDirection:
+                Axis.horizontal, // Scroll horizontal jika konten panjang
             child: Card(
               color: Colors.orange[50],
               shape: RoundedRectangleBorder(
@@ -191,17 +228,17 @@ Widget _restaurantMenu() {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Icon(
-                      Icons.discount,
-                      size: 40,
-                      color: Colors.orange,
-                    ),
+                    Icon(Icons.discount, size: 40, color: Colors.orange),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           "20% Off on All Orders",
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black87),
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87,
+                          ),
                         ),
                         SizedBox(height: 5),
                         Text(
@@ -239,7 +276,7 @@ Widget _restaurantMenu() {
     return Center(
       child: ElevatedButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/order');
+           Navigator.pushReplacementNamed(context, '/order');
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.green,
@@ -250,7 +287,11 @@ Widget _restaurantMenu() {
         ),
         child: Text(
           "Order Now",
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
         ),
       ),
     );

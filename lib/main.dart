@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:latian_praktikum/home_page.dart';
 import 'package:latian_praktikum/login_page.dart';
+import 'package:latian_praktikum/menu_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         '/login': (BuildContext context) => LoginPages(),
         '/home': (BuildContext context) => HomePage(),
-        '/order': (BuildContext context) => HomePage(), // login page
+        '/order': (BuildContext context) => MenuPage(), // login page
       },
     );
   }

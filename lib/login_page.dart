@@ -13,6 +13,7 @@ bool isLoginSuccess = true;
 class _LoginPagesState extends State<LoginPages> {
   String username = "";
   String password = "";
+  bool _isPasswordVisible = false; // Menyimpan status apakah password terlihat atau tidak
 
   @override
   Widget build(BuildContext context) {
@@ -87,12 +88,13 @@ class _LoginPagesState extends State<LoginPages> {
     );
   }
 
+  // Password field dengan toggle untuk melihat atau menyembunyikan password
   Widget _passwordField() {
     return TextFormField(
       onChanged: (value) {
         password = value;
       },
-      obscureText: true,
+      obscureText: !_isPasswordVisible, // Jika _isPasswordVisible true, password terlihat
       decoration: InputDecoration(
         hintText: "Password",
         prefixIcon: Icon(Icons.lock, color: Colors.green),
@@ -106,6 +108,17 @@ class _LoginPagesState extends State<LoginPages> {
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
           borderSide: BorderSide(color: Colors.blue, width: 2),
+        ),
+        suffixIcon: IconButton(
+          icon: Icon(
+            _isPasswordVisible ? Icons.visibility : Icons.visibility_off, // Ikon toggle
+            color: Colors.green,
+          ),
+          onPressed: () {
+            setState(() {
+              _isPasswordVisible = !_isPasswordVisible; // Toggle status password
+            });
+          },
         ),
       ),
     );
