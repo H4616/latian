@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:latian_praktikum/order_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -42,14 +43,14 @@ class _HomePageState extends State<HomePage> {
       ),
       body: SingleChildScrollView( // Membungkus dengan SingleChildScrollView untuk scroll
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(23.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _welcomeText(),
 
               // Menu Restoran dengan Animasi
-              SizedBox(height: 20),
+              SizedBox(height: 25),
               _restaurantMenu(),
 
               // Tawaran Spesial
@@ -89,32 +90,46 @@ class _HomePageState extends State<HomePage> {
   }
 
   // Restaurant Menu dengan Animasi
-  Widget _restaurantMenu() {
-    return AnimatedContainer(
-      duration: Duration(seconds: 1),
-      height: _containerHeight,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Menu",
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black87),
-          ),
-          SizedBox(height: 10),
-          // Gunakan Flexible untuk GridView agar dapat mengatur ukuran
-          Flexible(
-            child: GridView.builder(
-              shrinkWrap: true, // Membuat GridView menyesuaikan dengan ruang yang tersedia
-              physics: NeverScrollableScrollPhysics(), // Menonaktifkan scroll default dari GridView
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 8,
-                mainAxisSpacing: 8,
-                childAspectRatio: 1.2,
-              ),
-              itemCount: 6, // Jumlah item menu
-              itemBuilder: (context, index) {
-                return Card(
+Widget _restaurantMenu() {
+  return AnimatedContainer(
+    duration: Duration(seconds: 1),
+    height: _containerHeight,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Menu",
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black87),
+        ),
+        SizedBox(height: 15),
+        // Gunakan Flexible untuk GridView agar dapat mengatur ukuran
+        Flexible(
+          child: GridView.builder(
+            shrinkWrap: true, // Membuat GridView menyesuaikan dengan ruang yang tersedia
+            physics: NeverScrollableScrollPhysics(), // Menonaktifkan scroll default dari GridView
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 8,
+              mainAxisSpacing: 8,
+              childAspectRatio: 1.2,
+            ),
+            itemCount: 6, // Jumlah item menu
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () {
+                  // Mengarahkan ke halaman order dan mengirimkan data
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => OrderPage(
+                        name: "Menu Item ${index + 1}",
+                        price: "\$15.99",
+                        imagePath: 'assets/home_assets/gambar${index + 1}.jpg',
+                      ),
+                    ),
+                  );
+                },
+                child: Card(
                   color: Colors.green[50],
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
@@ -122,10 +137,10 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(
-                        Icons.food_bank,
-                        size: 40,
-                        color: Colors.green,
+                      Image.asset(
+                        'assets/home_assets/gambar${index + 1}.jpg', // Gambar akan diambil dari direktori home_assets
+                        width: 80, // Tentukan lebar gambar jika diperlukan
+                        height: 80, // Tentukan tinggi gambar jika diperlukan
                       ),
                       SizedBox(height: 10),
                       Text(
@@ -138,14 +153,17 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ],
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
-        ],
-      ),
-    );
-  }
+        ),
+      ],
+    ),
+  );
+}
+
+
 
   // Special Offers dengan Animasi
   Widget _specialOffers() {
