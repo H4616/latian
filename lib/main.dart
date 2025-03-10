@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:latian_praktikum/home_page.dart';
 import 'package:latian_praktikum/login_page.dart';
 
 void main() {
@@ -19,7 +20,9 @@ class MyApp extends StatelessWidget {
       ),
       home: LoginPages(),
       routes: <String, WidgetBuilder>{
-        '/login': (BuildContext context) => LoginPages(), // login page
+        '/login': (BuildContext context) => LoginPages(),
+        '/home': (BuildContext context) => HomePage(),
+        '/order': (BuildContext context) => HomePage(), // login page
       },
     );
   }

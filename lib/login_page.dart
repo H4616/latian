@@ -129,7 +129,7 @@ class _LoginPagesState extends State<LoginPages> {
               text = "Login Success!";
               isLoginSuccess = true;
               Future.delayed(Duration(seconds: 1), () {
-                Navigator.pushReplacementNamed(context, '/index');
+                Navigator.pushReplacementNamed(context, '/home');
               });
             });
           } else {
