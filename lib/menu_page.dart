@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'order_page.dart'; // Pastikan sudah mengimpor halaman OrderPage
+import 'login_page.dart'; // Mengimpor halaman login
 
 class MenuPage extends StatefulWidget {
   const MenuPage({super.key});
@@ -18,9 +19,10 @@ class _MenuPageState extends State<MenuPage> {
         backgroundColor: Colors.green,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.menu),
+          icon: Icon(Icons.home),
           onPressed: () {
-            // Logic untuk membuka menu samping (drawer)
+            // Logic untuk membuka home
+            Navigator.pushReplacementNamed(context, '/home');
           },
         ),
         actions: [
@@ -29,10 +31,16 @@ class _MenuPageState extends State<MenuPage> {
             icon: Icon(Icons.exit_to_app), // Ikon untuk logout
             onPressed: () {
               // Logic untuk logout, misalnya navigasi ke halaman login
-              Navigator.pushReplacementNamed(
+              Navigator.pushAndRemoveUntil(
                 context,
-                '/login',
-              ); // Arahkan kembali ke halaman login
+                MaterialPageRoute(
+                  builder: (context) {
+                    return LoginPages();
+                  },
+                ),
+                (route) => false,
+              );
+              // Arahkan kembali ke halaman login
             },
           ),
         ],

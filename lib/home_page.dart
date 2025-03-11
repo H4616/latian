@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:latian_praktikum/login_page.dart';
 import 'package:latian_praktikum/order_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -35,9 +36,10 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.green,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.menu),
+          icon: Icon(Icons.info_outlined),
           onPressed: () {
-            // Logic untuk membuka menu samping (drawer)
+            // Logic untuk membuka about
+            Navigator.pushNamed(context, '/about');
           },
         ),
         actions: [
@@ -46,10 +48,16 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(Icons.exit_to_app), // Ikon untuk logout
             onPressed: () {
               // Logic untuk logout, misalnya navigasi ke halaman login
-              Navigator.pushReplacementNamed(
+              Navigator.pushAndRemoveUntil(
                 context,
-                '/login',
-              ); // Arahkan kembali ke halaman login
+                MaterialPageRoute(
+                  builder: (context) {
+                    return LoginPages();
+                  },
+                ),
+                (route) => false,
+              );
+              // Arahkan kembali ke halaman login
             },
           ),
         ],
@@ -154,7 +162,8 @@ class _HomePageState extends State<HomePage> {
                               name: "Menu ${index + 1}",
                               price: "\$15.99",
                               imagePath:
-                                  'assets/home_assets/gambar${index + 1}.jpg', quantity: 1,
+                                  'assets/home_assets/gambar${index + 1}.jpg',
+                              quantity: 1,
                             ),
                       ),
                     );
@@ -276,7 +285,7 @@ class _HomePageState extends State<HomePage> {
     return Center(
       child: ElevatedButton(
         onPressed: () {
-           Navigator.pushReplacementNamed(context, '/order');
+          Navigator.pushReplacementNamed(context, '/order');
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.green,

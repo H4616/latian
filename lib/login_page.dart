@@ -60,7 +60,7 @@ class _LoginPagesState extends State<LoginPages> {
     return Container(
       alignment: Alignment.center,
       child: SizedBox(
-        child: Image.asset("assets/login_asset/logo.jpg"),
+        child: Image.asset("assets/login_asset/upnLogo.png"),
       ),
     );
   }
